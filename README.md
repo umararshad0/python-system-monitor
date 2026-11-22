@@ -41,7 +41,7 @@ python-system-monitor/
 Clone the repository and enter the project directory:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/umararshad0/python-system-monitor.git
 cd python-system-monitor
 ```
 
@@ -63,6 +63,8 @@ The script displays system information and appends monitoring events to:
 ```text
 logs/system-monitor.log
 ```
+
+The `logs/` directory is created automatically when the monitor starts.
 
 ## Run the Log Analyzer
 

@@ -3,10 +3,13 @@ import platform
 import os
 import subprocess
 from datetime import datetime
+from pathlib import Path
 
 def setup_logging():
+    log_dir = Path("logs")
+    log_dir.mkdir(parents=True, exist_ok=True)
     logging.basicConfig(
-        filename="logs/system-monitor.log",
+        filename=log_dir / "system-monitor.log",
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
@@ -85,10 +88,10 @@ def get_memory_info():
 
     except subprocess.CalledProcessError as error:
         print(f"Memory information error: {error}")   
-        logging.error("Disk information failed: %s", error)
+        logging.error("Memory information failed: %s", error)
 if __name__ == "__main__":
     setup_logging()
-    logging.info("System monitoring completed")
+    logging.info("System monitoring started")
     get_system_info()
     get_disk_info()
     get_memory_info()
