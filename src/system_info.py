@@ -32,14 +32,7 @@ def get_disk_info():
         )
         print("\n===== DISK INFORMATION =====")
         print(result.stdout)
-        usage = subprocess.run(
-            ["df", "-h", "/"],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-
-        capacity = usage.stdout.splitlines()[1].split()[4]
+        capacity = result.stdout.splitlines()[1].split()[4]
         usage_percent = int(capacity.rstrip("%"))
 
         if usage_percent >= 80:
@@ -60,7 +53,7 @@ def get_memory_info():
             check=True
         )
 
-        page_size = 16384
+        page_size = os.sysconf("SC_PAGE_SIZE")
         memory_stats = {}
 
         for line in result.stdout.splitlines():
