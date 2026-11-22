@@ -1,10 +1,35 @@
 # Python System Monitor
 
-A Python-based system monitoring and log analysis project. This learning project demonstrates Python fundamentals, system administration, file handling, exception handling, and logging.
+A Python utility that gathers basic system details, records monitoring events, and summarizes log severities.
 
-## Features
+## Problem & Solution
 
-### System Monitor (`src/system_info.py`)
+- **Problem:** Routine system checks and log summaries require manually collecting host details and counting messages.
+- **Approach:** The monitor records OS, processor, disk, and macOS memory information; a second script counts log levels.
+- **Outcome:** The two scripts provide a simple local monitoring and log-analysis workflow without third-party packages.
+
+## Screenshots
+
+No screenshots are included in this repository yet.
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+    Run[Run system monitor] --> Collect[Collect host and disk details]
+    Collect --> Memory[Read macOS memory stats when available]
+    Collect --> Log[(logs/system-monitor.log)]
+    Memory --> Log
+    Log --> Analyze[Run log analyzer]
+    Analyze --> Counts[Print severity counts]
+```
+
+## Project Details
+
+### Features
+
+
+#### System Monitor (`src/system_info.py`)
 - Displays the current date and time.
 - Reports operating system, version, processor, machine architecture, and CPU cores.
 - Checks root filesystem usage.
@@ -12,19 +37,23 @@ A Python-based system monitoring and log analysis project. This learning project
 - Collects macOS memory statistics using `vm_stat`.
 - Records monitoring events in a log file.
 
-### Log Analyzer (`src/log_analyzer.py`)
+#### Log Analyzer (`src/log_analyzer.py`)
 - Reads the system monitor log file.
 - Counts INFO, ERROR, and WARNING messages.
 - Calculates the total number of log messages.
 - Handles a missing log file.
 
-## Requirements
+
+### Requirements
+
 
 - Python 3
 - macOS for the current memory-reporting implementation (`vm_stat`)
 - Standard Python libraries; no external packages required.
 
-## Project structure
+
+### Project structure
+
 
 ```text
 python-system-monitor/
@@ -36,7 +65,9 @@ python-system-monitor/
 └── .gitignore
 ```
 
-## Setup
+
+### Setup
+
 
 Clone the repository and enter the project directory:
 
@@ -52,7 +83,9 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-## Run the System Monitor
+
+### Run the System Monitor
+
 
 ```bash
 python src/system_info.py
@@ -66,7 +99,9 @@ logs/system-monitor.log
 
 The `logs/` directory is created automatically when the monitor starts.
 
-## Run the Log Analyzer
+
+### Run the Log Analyzer
+
 
 ```bash
 python src/log_analyzer.py
@@ -76,13 +111,17 @@ The analyzer reads `logs/system-monitor.log` and displays the number of INFO, ER
 
 Run the system monitor at least once before running the analyzer.
 
-## Verify Python syntax
+
+### Verify Python syntax
+
 
 ```bash
 python -m py_compile src/system_info.py src/log_analyzer.py
 ```
 
-## Python concepts demonstrated
+
+### Python concepts demonstrated
+
 
 - Variables and data types
 - Conditional statements
@@ -95,13 +134,21 @@ python -m py_compile src/system_info.py src/log_analyzer.py
 - Logging
 - Subprocess execution
 
-## Limitations
+
+### Limitations
+
 
 - Memory reporting currently uses macOS `vm_stat` and is not yet implemented for Linux.
 - The disk warning threshold is fixed at 80%.
 - The project reports system health but does not automatically change system settings or restart services.
 - Log analysis counts messages by their severity labels; it does not perform advanced log parsing.
 
-## Project purpose
+
+### Project purpose
+
 
 This project was built to practise Python fundamentals and basic system administration through practical monitoring and log analysis utilities.
+
+## Author
+
+**Umar Arshad** · [GitHub](https://github.com/umararshad0)
